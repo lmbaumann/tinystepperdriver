@@ -25,6 +25,21 @@ public:
     bool move(int, int, int);
     bool iterate();
     void cancel();
+    void test(){std::cout << "tested";}
 };
+
+#ifdef C_LIB
+/*
+* Bindings to C for python compatibility
+*/
+extern "C" {
+    tinystepperdriver* tinystepperdriver_new(int pin_step, int pin_dir){ return new tinystepperdriver(pin_step, pin_dir); }
+    bool tinystepperdriver_move(tinystepperdriver* drv, int steps, int direction, int duration){ return drv->move(steps, direction, duration); }
+    bool tinystepperdriver_iterate(tinystepperdriver* drv){ return drv->iterate(); }
+    void tinystepperdriver_cancel(tinystepperdriver* drv){ return drv->cancel(); }
+    void tinystepperdriver_test(tinystepperdriver* drv){ return drv->test(); }
+}
+
+#endif
 
 #endif

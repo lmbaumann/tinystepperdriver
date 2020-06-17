@@ -1,4 +1,4 @@
-#include "tinystepperdriver.h"
+#include "tinystepperdriver.hh"
 
 tinystepperdriver::tinystepperdriver(int pin_step, int pin_dir)
 {
@@ -42,7 +42,7 @@ bool tinystepperdriver::iterate()
     if (active)
     {
         // test for end condition
-        if (cancel_current || duration <= 0)
+        if (cancel_current || (duration <= 0 && steps <= 0))
         {
             cancel_current = false;
 
@@ -57,7 +57,7 @@ bool tinystepperdriver::iterate()
         // check if the timing condition for a step is met
         unsigned long time_since_step = millis() - last_step_time;
 
-        if (time_since_step > duration / steps)
+        if (time_since_step > (unsigned long)duration / steps)
         {
             // do step if steps to do
             if (steps > 0)
@@ -78,18 +78,9 @@ bool tinystepperdriver::iterate()
 
 void tinystepperdriver::cancel()
 {
-    if (active)
+    if (tinystepperdriver::active)
     {
-        cancel_current = true;
+        tinystepperdriver::cancel_current = true;
     }
 }
 
-/*
-* Bindings to C for python compatibility
-*/
-extern "C" {
-    tinystepperdriver* tinystepperdriver_new(){ return new tinystepperdriver(); }
-    bool tinystepperdriver_move(tinystepperdriver* drv, int steps, int direction, int duration){ return drv->move(steps, direction, duration); }
-    bool tinystepperdriver_iterate(tinystepperdriver* drv){ return drv->iterate(); }
-    void tinystepperdriver_cancel(tinystepperdriver* drv){ return drv->cancel(); }
-}
