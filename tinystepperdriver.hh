@@ -46,6 +46,7 @@ public:
     void cancel();
 };
 
+// Use definition to configure build for pyhton binding
 #ifdef TINYSTEPPERDRIVER_PYTHON_BIND
 /*
 * Bindings to C for python compatibility
