@@ -3,8 +3,8 @@
 * Creates logging functions for the python bindings.
 * Created by Luca Baumann, 2020.
 */
-#ifndef arduino_h
-#define arduino_h
+#ifndef ARDUINO_H
+#define ARDUINO_H
 
 #include <iostream>
 #include <fstream>
@@ -15,6 +15,8 @@
 
 #define HIGH 1
 #define LOW 0
+#define OUTPUT 0
+#define INPUT 1
 
 #define TINYSTEPPERDRIVER_TIME_MS (unsigned long)std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count()
 #define TINYSTEPPERDRIVER_TIME_US (unsigned long)std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count()
@@ -22,6 +24,8 @@
 
 bool first_file_access_digitalWrite = true;
 bool first_file_access_general = true;
+
+void pinMode(int pin, int mode);
 
 void digitalWrite(int pin, int state)
 {

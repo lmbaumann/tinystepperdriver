@@ -3,10 +3,9 @@
 * Created by Luca Baumann, 2020.
 */
 
-#ifndef tinystepperdriver_h
-#define tinystepperdriver_h
+#ifndef TINYSTEPPERDRIVER_H
+#define TINYSTEPPERDRIVER_H
 
-//#include "Arduino.h"
 #include <Arduino.h>
 
 class TinyStepperDriver
@@ -33,7 +32,8 @@ public:
     * direction: Translates directly to writing to the direction pin
     * duration: Planned duration of the move in milliseconds
     */
-    bool move(int steps, int direction, int duration);
+    bool move(unsigned int steps, unsigned int direction, unsigned long duration);
+    bool move(int steps, unsigned long duration);
 
     /*
     * Performs the move configured by move(). 
@@ -45,6 +45,7 @@ public:
     */
     void cancel();
 };
+
 
 // Use definition to configure build for pyhton binding
 #ifdef TINYSTEPPERDRIVER_PYTHON_BIND
