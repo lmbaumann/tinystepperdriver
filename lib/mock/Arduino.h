@@ -25,7 +25,7 @@
 bool first_file_access_digitalWrite = true;
 bool first_file_access_general = true;
 
-void pinMode(int pin, int mode);
+void pinMode(int pin, int mode){}
 
 void digitalWrite(int pin, int state)
 {

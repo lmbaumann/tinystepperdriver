@@ -75,7 +75,7 @@ bool TinyStepperDriver::move(unsigned int steps, unsigned int direction, unsigne
 
 bool TinyStepperDriver::move(int steps, unsigned long duration)
 {
-    TinyStepperDriver::move(abs(steps), steps > 0, duration);
+    return TinyStepperDriver::move(abs(steps), steps > 0, duration);
 }
 
 bool TinyStepperDriver::iterate()
