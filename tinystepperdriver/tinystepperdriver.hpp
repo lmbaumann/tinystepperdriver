@@ -6,9 +6,6 @@
 #ifndef TINYSTEPPERDRIVER_H
 #define TINYSTEPPERDRIVER_H
 
-// Some configuration of the stepper driver
-#define TINYSTEPPERDRIVER_MINIMUM_STEP_TIME_US 2    // Value from A4988 data sheet
-
 #include <Arduino.h>
 
 class TinyStepperDriver

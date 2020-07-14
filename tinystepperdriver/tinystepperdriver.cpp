@@ -63,7 +63,7 @@ bool TinyStepperDriver::move(unsigned int n_steps, unsigned int dir, unsigned lo
     else
     {
         // Sanity checks
-        if (n_steps > duration_ms) return false; // Assuming maximum speed of 1 step/millisecond
+        if (n_steps > duration_ms) return false; // Assuming maximum speed of 1 step/millisecond based on tests of A4988
 
         // Initialize executing move
         TinyStepperDriver::active = true;

@@ -1,4 +1,4 @@
-SRC = src
+SRC = tinystepperdriver
 TEST_DIR = tests
 LIB_DIR = lib
 CXX = g++

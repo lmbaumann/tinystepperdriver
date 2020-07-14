@@ -20,7 +20,7 @@ void setup() {
   Serial.begin(9600);
 #endif
   // Initiate a move with 200 steps, direction 1 in 1 second (1000 ms)
-  driver.move(-200, 1000);
+  driver.move(-200, 200);
   pinMode(PIN_EN, OUTPUT);
   digitalWrite(PIN_EN, LOW);
 }
