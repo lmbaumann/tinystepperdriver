@@ -30,23 +30,32 @@ void general_log(String text)
 
 TinyStepperDriver::TinyStepperDriver(unsigned int pin_step, unsigned int pin_dir)
 {
-    if (pin_step == pin_dir) throw std::invalid_argument("TinyStepperDriver: same pins for step and dir is not allowed!");
-    
-    TinyStepperDriver::pin_step = pin_step;
-    TinyStepperDriver::pin_dir = pin_dir;
+    if (pin_step == pin_dir) TinyStepperDriver::initialized = false;
+    else
+    {
+        TinyStepperDriver::pin_step = pin_step;
+        TinyStepperDriver::pin_dir = pin_dir;
 
-    // Set pin modes
-    pinMode(pin_step, OUTPUT);
-    pinMode(pin_dir, OUTPUT);
+        // Set pin modes
+        pinMode(pin_step, OUTPUT);
+        pinMode(pin_dir, OUTPUT);
+
+        TinyStepperDriver::initialized = true;
+    }
 }
 
 TinyStepperDriver::~TinyStepperDriver()
 {
 }
 
+bool TinyStepperDriver::is_initialized()
+{
+    return initialized;
+}
+
 bool TinyStepperDriver::move(unsigned int n_steps, unsigned int dir, unsigned long duration_ms)
 {
-    if (active)
+    if (!initialized || active)
     {
         // If there is a move currently running, refuse new configuration since no pipeline is defined
         return false;
@@ -82,7 +91,7 @@ bool TinyStepperDriver::move(int n_steps, unsigned long duration_ms)
 
 bool TinyStepperDriver::iterate()
 {
-    if (active)
+    if (initialized && active)
     {
         // test for end condition
         if (cancel_current || (steps <= 0 && duration <= 0))

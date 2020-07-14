@@ -6,6 +6,9 @@
 #ifndef TINYSTEPPERDRIVER_H
 #define TINYSTEPPERDRIVER_H
 
+// Some configuration of the stepper driver
+#define TINYSTEPPERDRIVER_MINIMUM_STEP_TIME_US 2    // Value from A4988 data sheet
+
 #include <Arduino.h>
 
 class TinyStepperDriver
@@ -14,7 +17,7 @@ private:
     // Store pins for step and direction outputs
     int pin_step = 0, pin_dir = 0;
     int steps = 0, direction = 0;
-    bool active = false, cancel_current = false, last_step_pin = false;
+    bool active = false, cancel_current = false, last_step_pin = false, initialized = false;
     unsigned long last_step_time = 0, duration = 0;
 
 public:
@@ -25,6 +28,11 @@ public:
     */
     TinyStepperDriver(unsigned int pin_step, unsigned int pin_dir);
     ~TinyStepperDriver();
+
+    /*
+    * Returns true if driver is ready for use.
+    */
+    bool is_initialized();
 
     /*
     * Initiates a move operation. 

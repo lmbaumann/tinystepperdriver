@@ -27,15 +27,8 @@ int test_tinystepperdriver_constructor()
     int errors = 0;
 
     // test
-    try
-    {
-        TinyStepperDriver drv = TinyStepperDriver(1, 2);  // should just work normally
-    }
-    catch(const exception& e)
-    {
-        cerr << e.what() << '\n';
-        errors = 1;
-    }
+    TinyStepperDriver drv = TinyStepperDriver(1, 2);  // should just work normally
+    errors += !drv.is_initialized();
 
     // cleanup
     mock_reset();
@@ -51,15 +44,8 @@ int test_tinystepperdriver_constructor_double_pin()
     int errors = 0;
 
     // test
-    try
-    {
-        TinyStepperDriver drv = TinyStepperDriver(1, 1);  // should not work
-        errors = 1;
-    }
-    catch(const exception& e)
-    {
-        // this is fine
-    }
+    TinyStepperDriver drv = TinyStepperDriver(1, 1);  // should not work
+    errors += drv.is_initialized();
 
     // cleanup
     mock_reset();
