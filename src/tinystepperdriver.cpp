@@ -28,8 +28,10 @@ void general_log(String text)
 #endif
 #endif
 
-TinyStepperDriver::TinyStepperDriver(int pin_step, int pin_dir)
+TinyStepperDriver::TinyStepperDriver(unsigned int pin_step, unsigned int pin_dir)
 {
+    if (pin_step == pin_dir) throw std::invalid_argument("TinyStepperDriver: same pins for step and dir is not allowed!");
+    
     TinyStepperDriver::pin_step = pin_step;
     TinyStepperDriver::pin_dir = pin_dir;
 
@@ -42,7 +44,7 @@ TinyStepperDriver::~TinyStepperDriver()
 {
 }
 
-bool TinyStepperDriver::move(unsigned int steps, unsigned int direction, unsigned long duration)
+bool TinyStepperDriver::move(unsigned int n_steps, unsigned int dir, unsigned long duration_ms)
 {
     if (active)
     {
@@ -52,13 +54,13 @@ bool TinyStepperDriver::move(unsigned int steps, unsigned int direction, unsigne
     else
     {
         // Sanity checks
-        if (steps > duration) return false; // Assuming maximum speed of 1 step/millisecond
+        if (n_steps > duration_ms) return false; // Assuming maximum speed of 1 step/millisecond
 
         // Initialize executing move
         TinyStepperDriver::active = true;
-        TinyStepperDriver::steps = steps * 2; // steps is used to enable and disable step output pin, so double count is needed
-        TinyStepperDriver::direction = direction;
-        TinyStepperDriver::duration = (unsigned long) duration * 1000; // convert to microseconds
+        TinyStepperDriver::steps = n_steps * 2; // steps is used to enable and disable step output pin, so double count is needed
+        TinyStepperDriver::direction = dir;
+        TinyStepperDriver::duration = duration_ms * 1000; // convert to microseconds
         TinyStepperDriver::last_step_time = micros();
         TinyStepperDriver::last_step_pin = false;
 
@@ -73,9 +75,9 @@ bool TinyStepperDriver::move(unsigned int steps, unsigned int direction, unsigne
     return true;
 }
 
-bool TinyStepperDriver::move(int steps, unsigned long duration)
+bool TinyStepperDriver::move(int n_steps, unsigned long duration_ms)
 {
-    return TinyStepperDriver::move(abs(steps), steps > 0, duration);
+    return TinyStepperDriver::move(abs(n_steps), n_steps > 0, duration_ms);
 }
 
 bool TinyStepperDriver::iterate()

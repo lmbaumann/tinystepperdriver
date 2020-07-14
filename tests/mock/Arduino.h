@@ -11,11 +11,15 @@
 #define TINYSTEPPERDRIVER_TIME_MS (unsigned long)std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count()
 #define TINYSTEPPERDRIVER_TIME_US (unsigned long)std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count()
 
+enum time_modes {normal, iterate};
+
+// reset all variables in this mock implementation
+void mock_reset();
+void mock_time_mode(time_modes mode);
+
 void pinMode(int pin, int mode);
 
 void digitalWrite(int pin, int state);
-
-unsigned long millis();
 
 unsigned long micros();
 

@@ -24,7 +24,7 @@ lib: ${LIB_DIR}/tinystepperdriver.o
 ${LIB_DIR}/tinystepperdriver.o: ${SRC}/tinystepperdriver.cpp ${SRC}/tinystepperdriver.hpp ${LIB_DIR}/mock/Arduino.h
 	${CXX} ${WARNINGS} -I${LIB_DIR}/mock -fPIC -DTINYSTEPPERDRIVER_PYTHON_BIND -DTINYSTEPPERDRIVER_DEBUG -c ${SRC}/*.cpp -o ${LIB_DIR}/tinystepperdriver.o
 
-# Compile and execute tests
+# Compile and execute tests. make exits on return codes != 0
 tests: ${TEST_DIR}/test_tinystepperdriver.${EXEC_POST}
 	${TEST_DIR}/test_tinystepperdriver.${EXEC_POST}
 

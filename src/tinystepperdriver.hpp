@@ -1,5 +1,5 @@
 /*
-* tinystepperdriver.hh - Lightweight library for stepper motor controll on arduino.
+* tinystepperdriver.hpp - Lightweight library for stepper motor controll on arduino.
 * Created by Luca Baumann, 2020.
 */
 
@@ -12,10 +12,10 @@ class TinyStepperDriver
 {
 private:
     // Store pins for step and direction outputs
-    int pin_step, pin_dir = 0;
-    int steps, direction = 0;
-    bool active, cancel_current, last_step_pin = false;
-    unsigned long last_step_time, duration = 0;
+    int pin_step = 0, pin_dir = 0;
+    int steps = 0, direction = 0;
+    bool active = false, cancel_current = false, last_step_pin = false;
+    unsigned long last_step_time = 0, duration = 0;
 
 public:
     /*
@@ -23,7 +23,7 @@ public:
     * pin_step: Pin number top write step operations
     * pin_dir: Direction pin
     */
-    TinyStepperDriver(int pin_step, int pin_dir);
+    TinyStepperDriver(unsigned int pin_step, unsigned int pin_dir);
     ~TinyStepperDriver();
 
     /*
@@ -32,8 +32,8 @@ public:
     * direction: Translates directly to writing to the direction pin
     * duration: Planned duration of the move in milliseconds
     */
-    bool move(unsigned int steps, unsigned int direction, unsigned long duration);
-    bool move(int steps, unsigned long duration);
+    bool move(unsigned int n_steps, unsigned int dir, unsigned long duration_ms);
+    bool move(int n_steps, unsigned long duration_ms);
 
     /*
     * Performs the move configured by move(). 
