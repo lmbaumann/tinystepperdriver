@@ -18,7 +18,7 @@ endif
 all: tests lib cleanup
 
 # Compile python library
-lib: ${LIB_DIR}/tinystepperdriver.o 
+lib: tests ${LIB_DIR}/tinystepperdriver.o 
 	${CXX} ${WARNINGS} -shared -Wl,-soname,libtinystepperdriver.so -fPIC ${LIB_DIR}/tinystepperdriver.o ${LIB_DIR}/mock/Arduino.h -o ${LIB_DIR}/libtinystepperdriver.so
 
 ${LIB_DIR}/tinystepperdriver.o: ${SRC}/tinystepperdriver.cpp ${SRC}/tinystepperdriver.hpp ${LIB_DIR}/mock/Arduino.h

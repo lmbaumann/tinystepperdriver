@@ -42,6 +42,7 @@ public:
 
     /*
     * Performs the move configured by move(). 
+    * Returns true while executing a move.
     */
     bool iterate();
     

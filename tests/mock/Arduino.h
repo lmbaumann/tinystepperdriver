@@ -16,6 +16,7 @@ enum time_modes {normal, iterate};
 // reset all variables in this mock implementation
 void mock_reset();
 void mock_time_mode(time_modes mode);
+void mock_time_iteration(int timespan);
 
 void pinMode(int pin, int mode);
 

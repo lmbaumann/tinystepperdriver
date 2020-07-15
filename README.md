@@ -13,11 +13,11 @@ tinystepperdriver.ino contains a minimal working example on how to use the drive
 
 ## Python binding
 
-lib-py contains all files necessary to build and use this library in python.
+lib contains all files necessary to build and use this library in python.
 
-To build the library, run "make" in the lib-py directory.
+To build the library, run "make" in the lib directory.
 
-lib-py/test_py_wrapper.ipynb contains a working example on how to use the python library from lib-py/tinystepperdriver.py.
+lib/test_py_wrapper.ipynb contains a working example on how to use the python library from lib/tinystepperdriver.py.
 
 ## Todo
 

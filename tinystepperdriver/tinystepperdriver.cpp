@@ -104,7 +104,7 @@ bool TinyStepperDriver::iterate()
 
             // disable execution
             active = false;
-            return true;
+            return false;
         }
 
         // check if the timing condition for a step is met
